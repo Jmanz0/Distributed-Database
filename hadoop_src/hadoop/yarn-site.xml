@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.capacity.root.default.maximum-am-resource-percent</name>
+        <value>1</value>
+    </property>
+</configuration>

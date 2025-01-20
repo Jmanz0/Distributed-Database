@@ -1,0 +1,87 @@
+{
+  "sharded": true,
+  "vindexes": {
+    "region_vdx": {
+      "type": "lookup_unique",
+      "params": {
+        "table": "lookup.region_lookup",
+        "from": "region",
+        "to": "keyspace_id"
+      }
+    },
+    "category_vdx": {
+      "type": "lookup_unique",
+      "params": {
+        "table": "lookup.category_lookup",
+        "from": "category",
+        "to": "keyspace_id"
+      }
+    },
+    "temporal_vdx": {
+      "type": "lookup_unique",
+      "params": {
+        "table": "lookup.temporal_lookup",
+        "from": "temporalGranularity",
+        "to": "keyspace_id"
+      }
+    },
+    "aid_vdx": {
+      "type": "lookup_unique",
+      "params": {
+        "table": "lookup.aid_lookup",
+        "from": "aid",
+        "to": "keyspace_id"
+      }
+    },
+    "uid_vdx": {
+      "type": "lookup_unique",
+      "params": {
+        "table": "lookup.uid_lookup",
+        "from": "uid",
+        "to": "keyspace_id"
+      }
+    }
+  },
+  "tables": {
+    "user": {
+      "column_vindexes": [
+        {
+          "column": "region",
+          "name": "region_vdx"
+        }
+      ]
+    },
+    "article": {
+      "column_vindexes": [
+        {
+          "column": "category",
+          "name": "category_vdx"
+        }
+      ]
+    },
+    "read": {
+      "column_vindexes": [
+        {
+          "column": "uid",
+          "name": "uid_vdx"
+        }
+      ]
+    },
+    "be_read": {
+      "column_vindexes": [
+        {
+          "column": "aid",
+          "name": "aid_vdx"
+        }
+      ]
+    },
+    "popular_rank": {
+      "column_vindexes": [
+        {
+          "column": "temporalGranularity",
+          "name": "temporal_vdx"
+        }
+      ]
+    }
+  }
+}

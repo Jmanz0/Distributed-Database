@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<configuration>
+    <!-- Number of replicas for each block -->
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+
+    <!-- Directory for NameNode metadata -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///opt/hadoop/hdfs/namenode</value>
+    </property>
+
+    <!-- Directory for DataNode data -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///opt/hadoop/hdfs/datanode</value>
+    </property>
+
+    <!-- HTTP address for NameNode Web UI -->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>0.0.0.0:50070</value>
+    </property>
+
+    <!-- Address for NameNode RPC -->
+    <property>
+        <name>dfs.namenode.rpc-address</name>
+        <value>0.0.0.0:9000</value>
+    </property>
+</configuration>

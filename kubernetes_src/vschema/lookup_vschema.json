@@ -1,0 +1,9 @@
+{
+    "sharded": false,
+    "tables": {
+      "region_lookup": {},
+      "category_lookup": {},
+      "temporal_lookup": {},
+      "aid_lookup": {}
+    }
+  }

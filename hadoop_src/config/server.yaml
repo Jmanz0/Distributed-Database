@@ -1,0 +1,10 @@
+mode:
+  type: Standalone
+  repository:
+    type: File
+    props:
+      path: /opt/shardingsphere-proxy/conf
+  
+props:
+  sql-parse-optimize: false
+  sql-show: true

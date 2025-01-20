@@ -1,0 +1,79 @@
+databaseName: db
+dataSources:
+  ds0:
+    url: jdbc:mysql://dbms1:3306/db1?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root_password
+  ds1:
+    url: jdbc:mysql://dbms2:3306/db2?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root_password
+
+rules:
+  - !SHARDING
+    tables:
+      # User Table
+      user:
+        actualDataNodes: ds1.user_1, ds0.user_0
+        tableStrategy:
+          standard:
+            shardingColumn: region
+            shardingAlgorithmName: user_region_custom
+
+      # Article Table
+      article:
+        actualDataNodes: ds0.article_0, ds1.article_1
+        tableStrategy:
+          standard:
+            shardingColumn: category
+            shardingAlgorithmName: article_category_custom
+
+      # Read Table
+      read:
+        actualDataNodes: ds0.read_0, ds1.read_1
+        tableStrategy:
+          standard:
+            shardingColumn: region
+            shardingAlgorithmName: user_region_custom
+
+      # Be-Read Table
+      be_read:
+        actualDataNodes: ds0.be_read_0, ds1.be_read_1
+        tableStrategy:
+          standard:
+            shardingColumn: category
+            shardingAlgorithmName: be_read_category_custom
+
+      # Popular-Rank Table
+      popular_rank:
+        actualDataNodes: ds0.popular_rank_0, ds1.popular_rank_1
+        tableStrategy:
+          standard:
+            shardingColumn: temporalGranularity
+            shardingAlgorithmName: popular_rank_temporal_custom
+
+    shardingAlgorithms:
+      # User Table Sharding
+      user_region_custom:
+        type: CLASS_BASED
+        props:
+          strategy: STANDARD
+          algorithmClassName: com.example.sharding.algorithms.UserRegionShardingAlgorithm
+
+      # Article Table Sharding
+      article_category_custom:
+        type: ARTICLE_CATEGORY_CUSTOM
+
+      # Be-Read Table Sharding
+      be_read_category_custom:
+        type: CLASS_BASED
+        props:
+          strategy: STANDARD
+          algorithmClassName: com.example.sharding.algorithms.BeReadCategoryShardingAlgorithm
+
+      # Popular-Rank Table Sharding
+      popular_rank_temporal_custom:
+        type: CLASS_BASED
+        props:
+          strategy: STANDARD
+          algorithmClassName: com.example.sharding.algorithms.PopularRankTemporalShardingAlgorithm
